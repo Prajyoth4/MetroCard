@@ -14,6 +14,10 @@ public class Passenger {
 //        };
     }
 
+    public String getCardNumber(){
+        return cardNumber;
+    }
+
     public int getBalance(){
         return balance;
     }

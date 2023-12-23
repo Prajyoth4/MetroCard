@@ -1,6 +1,12 @@
 package com.example.geektrust;
 
 import com.example.geektrust.commands.*;
+import com.example.geektrust.repositories.IPassengerRepository;
+import com.example.geektrust.repositories.IStationRepository;
+import com.example.geektrust.repositories.PassengerRepository;
+import com.example.geektrust.repositories.StationRepository;
+import com.example.geektrust.services.PassengerService;
+import com.example.geektrust.services.StationService;
 
 public class Configuration {
     // Singleton Pattern
@@ -17,21 +23,18 @@ public class Configuration {
     }
 
     // Initialize repositories
-    private final IUserRepository userRepository = new UserRepository();
-    private final IQuestionRepository questionRepository = new QuestionRepository();
-    private final IContestRepository contestRepository = new ContestRepository();
-    private final IContestantRepository contestantRepository = new ContestantRepository();
+    private final IPassengerRepository passengerRepository = new PassengerRepository(passengerMap);
+    private final IStationRepository stationRepository = new StationRepository();
 
 
     // Initialize services
-    private final UserService userService = new UserService(userRepository);
-    private final QuestionService questionService = new QuestionService(questionRepository);
-    private final ContestService contestService = new ContestService(contestantRepository, contestRepository, questionRepository, userRepository);
+    private final PassengerService passengerService = new PassengerService(passengerRepository);
+    private final StationService stationService = new StationService(stationRepository);
 
     // Initialize commands
-    private final BalanceCommand balanceCommand = new BalanceCommand(userService);
-    private final CheckInCommand checkInCommand = new CheckInCommand(questionService);
-    private final PrintSummaryCommand printSummaryCommand = new PrintSummaryCommand(questionService);
+    private final BalanceCommand balanceCommand = new BalanceCommand(passengerService);
+    private final CheckInCommand checkInCommand = new CheckInCommand(stationService);
+    private final PrintSummaryCommand printSummaryCommand = new PrintSummaryCommand(stationService);
 
     // Initialize commandRegistery
     private final CommandRegistry commandRegistry = new CommandRegistry();
