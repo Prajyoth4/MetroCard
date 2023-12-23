@@ -28,7 +28,7 @@ public class Station {
         if (setOfPassengers.contains(passenger)) {
             // discount
             price = price / 2;
-            discountGiven += price/2;
+            discountGiven += price;
             setOfPassengers.remove(passenger);
         } else {
             setOfPassengers.add(passenger);
@@ -52,8 +52,10 @@ public class Station {
         System.out.println("PASSENGER_TYPE_SUMMARY");
         mapOfSummary.entrySet().stream()
                 .filter((ele) -> ele.getValue()>0)
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.<PassengerType, Integer>comparingByValue().reversed().thenComparing(ele -> String.valueOf(ele.getKey())))
+//                .sorted(ele -> Comparator.comparing(() -> ele.getValue()).reversed().thenComparing(Map.Entry::getKey))
                 .forEach((ele) -> System.out.println(ele.getKey() + " " + ele.getValue()));
+
     }
 
 }

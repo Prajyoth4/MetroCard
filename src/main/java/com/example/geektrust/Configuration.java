@@ -23,13 +23,13 @@ public class Configuration {
     }
 
     // Initialize repositories
-    private final IPassengerRepository passengerRepository = new PassengerRepository(passengerMap);
-    private final IStationRepository stationRepository = new StationRepository(stationMap);
+    private final IPassengerRepository passengerRepository = new PassengerRepository();
+    private final IStationRepository stationRepository = new StationRepository();
 
 
     // Initialize services
     private final PassengerService passengerService = new PassengerService(passengerRepository);
-    private final StationService stationService = new StationService(stationRepository);
+    private final StationService stationService = new StationService(stationRepository, passengerRepository);
 
     // Initialize commands
     private final BalanceCommand balanceCommand = new BalanceCommand(passengerService);

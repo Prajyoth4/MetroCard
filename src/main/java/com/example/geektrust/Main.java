@@ -22,8 +22,9 @@ public class Main {
         Configuration conf = Configuration.getInstance();
 
         CommandRegistry commandRegistry = conf.getCommandRegistry();
+        //System.out.println(commandLineArgs);
 
-        String inputFile = commandLineArgs.get(0).split("=")[1];
+        String inputFile = commandLineArgs.get(0);
 
         try(BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
 

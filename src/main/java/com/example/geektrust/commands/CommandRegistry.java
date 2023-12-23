@@ -28,6 +28,7 @@ public class CommandRegistry {
 
 
     public void invokeCommand(String input) {
+//        System.out.println(input);
         List<String> tokens = parse(input);
         ICommand command = get(tokens.get(0));
         if(command == null){
