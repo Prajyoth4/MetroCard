@@ -42,13 +42,18 @@ public class Station {
             amountCollected += price + (int) (0.02 * (price - balance));
             passenger.setBalance(0);
         }
+
+        mapOfSummary.merge(type, 1, Integer::sum);
     }
 
 
     public void printSummary(){
         System.out.println("TOTAL COLLECTION " + stationName + " " + amountCollected + " " + discountGiven);
         System.out.println("PASSENGER_TYPE_SUMMARY");
-
+        mapOfSummary.entrySet().stream()
+                .filter((ele) -> ele.getValue()>0)
+                .sorted(Map.Entry.comparingByValue())
+                .forEach((ele) -> System.out.println(ele.getKey() + " " + ele.getValue()));
     }
 
 }

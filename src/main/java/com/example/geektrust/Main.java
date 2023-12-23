@@ -1,21 +1,44 @@
-package com.example.geektrust; 
+package com.example.geektrust;
+
+import com.example.geektrust.commands.CommandRegistry;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World");
-        /*
-        Sample code to read from file passed as command line argument
-        try {
-            // the file to be opened for reading
-            FileInputStream fis = new FileInputStream(args[0]);
-            Scanner sc = new Scanner(fis); // file to be scanned
-            // returns true if there is another line to read
-            while (sc.hasNextLine()) {
-               //Add your code here to process input commands
-            }
-            sc.close(); // closes the scanner
-        } catch (IOException e) {
+        if (args.length != 1){
+            throw new RuntimeException();
         }
-        */
+        List<String> commandLineArgs = new LinkedList<>(Arrays.asList(args));
+        run(commandLineArgs);
+    }
+
+    public static void run(List<String> commandLineArgs){
+
+        Configuration conf = Configuration.getInstance();
+
+        CommandRegistry commandRegistry = conf.getCommandRegistry();
+
+        String inputFile = commandLineArgs.get(0).split("=")[1];
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+
+            while (true) {
+                String line = reader.readLine();
+                if (line == null){
+                    break;
+                }
+                commandRegistry.invokeCommand(line);
+            }
+
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
