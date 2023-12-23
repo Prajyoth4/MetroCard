@@ -24,7 +24,7 @@ public class Configuration {
 
     // Initialize repositories
     private final IPassengerRepository passengerRepository = new PassengerRepository(passengerMap);
-    private final IStationRepository stationRepository = new StationRepository();
+    private final IStationRepository stationRepository = new StationRepository(stationMap);
 
 
     // Initialize services

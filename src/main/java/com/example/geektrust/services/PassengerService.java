@@ -1,5 +1,6 @@
 package com.example.geektrust.services;
 
+import com.example.geektrust.entities.Passenger;
 import com.example.geektrust.repositories.IPassengerRepository;
 
 public class PassengerService {
@@ -10,6 +11,6 @@ public class PassengerService {
     }
 
     public void createPassenger(String metroCardNumber, Integer balance){
-
+        passengerRepository.save(new Passenger(balance, metroCardNumber));
     }
 }
